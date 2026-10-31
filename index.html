@@ -11,17 +11,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:    #070d1a;
-      --navy2:   #0d1628;
-      --navy3:   #111e35;
-      --blue:    #1a7fff;
-      --blue2:   #0af;
-      --glow:    rgba(26,127,255,0.35);
-      --glow2:   rgba(0,170,255,0.15);
-      --text:    #e8edf5;
-      --muted:   #8899b4;
-      --card:    rgba(13,22,40,0.85);
-      --border:  rgba(26,127,255,0.18);
+      --navy:  #0a0514;
+      --navy2: #0f0a1e;
+      --navy3: #1a0f2e;
+      --blue:  #7c3aed;
+      --blue2: #00aaff;
+      --glow:  rgba(124,58,237,0.4);
+      --glow2: rgba(0,170,255,0.15);
+      --text:  #ede8f5;
+      --muted: #9488b4;
+      --card:  rgba(15,10,30,0.85);
+      --border:rgba(124,58,237,0.22);
     }
 
     html { scroll-behavior: smooth; }
@@ -30,642 +30,293 @@
       font-family: 'Inter', sans-serif;
       background: var(--navy);
       color: var(--text);
-      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ── GRID BACKGROUND ── */
+    /* ── GRID BG ── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
-        linear-gradient(rgba(26,127,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26,127,255,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(124,58,237,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.04) 1px, transparent 1px);
       background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
-    /* ── NAVBAR ── */
+    /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 60px;
-      background: rgba(7,13,26,0.85);
-      backdrop-filter: blur(16px);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(10,5,20,0.92);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
-
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-
-    .logo span { color: var(--blue2); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 36px;
-    }
-
-    nav ul a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
-    }
-
-    nav ul a:hover { color: var(--blue2); }
-
-    .nav-cta {
-      background: var(--blue);
-      color: #fff !important;
-      padding: 10px 22px;
-      border-radius: 8px;
-      transition: background 0.2s, box-shadow 0.2s !important;
-    }
-
-    .nav-cta:hover {
-      background: var(--blue2) !important;
-      box-shadow: 0 0 20px var(--glow);
-    }
+    .logo { font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; color:#fff; text-decoration:none; }
+    .logo span { color:var(--blue2); }
+    nav ul { list-style:none; display:flex; gap:32px; }
+    nav ul a { color:var(--muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color 0.2s; }
+    nav ul a:hover { color:var(--blue2); }
+    .nav-cta { background:var(--blue)!important; color:#fff!important; padding:9px 20px; border-radius:8px; transition:all 0.2s!important; }
+    .nav-cta:hover { background:var(--blue2)!important; box-shadow:0 0 20px var(--glow); }
+    @media(max-width:768px){ nav{padding:16px 20px;} nav ul{display:none;} }
 
     /* ── HERO ── */
     #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 24px 100px;
-      z-index: 1;
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 140px 24px 80px;
+      z-index: 1; overflow: hidden;
     }
 
+    /* Ocean floor */
+    .ocean {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+      background: linear-gradient(to top, rgba(124,58,237,0.08), transparent);
+      z-index: 0;
+    }
+    .wave {
+      position: absolute; bottom: 0; left: -100%; width: 300%; height: 60px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath fill='rgba(124,58,237,0.07)' d='M0,30 C360,60 720,0 1080,30 C1260,45 1350,15 1440,30 L1440,60 L0,60 Z'/%3E%3C/svg%3E") repeat-x;
+      animation: wave-move 8s linear infinite;
+    }
+    .wave2 {
+      position: absolute; bottom: 0; left: -100%; width: 300%; height: 40px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40'%3E%3Cpath fill='rgba(0,170,255,0.05)' d='M0,20 C360,40 720,0 1080,20 C1260,30 1350,10 1440,20 L1440,40 L0,40 Z'/%3E%3C/svg%3E") repeat-x;
+      animation: wave-move 12s linear infinite reverse;
+    }
+    @keyframes wave-move { from{transform:translateX(0)} to{transform:translateX(33.33%)} }
+
+    /* Cargo Ship */
+    .ship-container {
+      position: absolute; bottom: 55px; left: -220px;
+      animation: sail 18s linear infinite;
+      z-index: 2;
+    }
+    @keyframes sail {
+      0%   { left: -220px; }
+      100% { left: 110%; }
+    }
+    .ship svg { filter: drop-shadow(0 4px 12px rgba(124,58,237,0.4)); }
+
+    /* Cargo Plane */
+    .plane-container {
+      position: absolute; top: 120px; right: -160px;
+      animation: fly 14s linear infinite;
+      z-index: 2;
+    }
+    @keyframes fly {
+      0%   { right: -160px; top: 120px; opacity:0; }
+      5%   { opacity:1; }
+      95%  { opacity:1; }
+      100% { right: 110%; top: 180px; opacity:0; }
+    }
+
+    /* Floating containers */
+    .container-float {
+      position: absolute; opacity: 0.12;
+      animation: float-up linear infinite;
+    }
+    @keyframes float-up {
+      0%   { transform: translateY(0) rotate(0deg); opacity:0.12; }
+      50%  { opacity:0.2; }
+      100% { transform: translateY(-80px) rotate(5deg); opacity:0; }
+    }
+
+    /* Route lines SVG */
+    .route-lines {
+      position: absolute; inset: 0; width:100%; height:100%;
+      pointer-events: none; z-index: 1; opacity: 0.15;
+    }
+    .route-path {
+      fill: none; stroke: var(--blue2); stroke-width: 1.5;
+      stroke-dasharray: 8 6;
+      animation: dash-move 4s linear infinite;
+    }
+    @keyframes dash-move { to { stroke-dashoffset: -56; } }
+
+    /* Particles */
+    .particles { position:absolute; inset:0; pointer-events:none; z-index:1; }
+    .particle {
+      position:absolute; border-radius:50%;
+      background: var(--blue2); opacity:0;
+      animation: particle-float linear infinite;
+    }
+    @keyframes particle-float {
+      0%   { transform:translateY(0) scale(1); opacity:0; }
+      20%  { opacity:0.6; }
+      80%  { opacity:0.3; }
+      100% { transform:translateY(-120px) scale(0.3); opacity:0; }
+    }
+
+    /* Glow orb */
     .hero-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -60%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(ellipse, rgba(26,127,255,0.12) 0%, transparent 70%);
-      pointer-events: none;
+      position:absolute; top:40%; left:50%; transform:translate(-50%,-50%);
+      width:600px; height:600px;
+      background:radial-gradient(ellipse,rgba(124,58,237,0.1) 0%,transparent 70%);
+      pointer-events:none; animation:orb-pulse 4s ease-in-out infinite;
+    }
+    @keyframes orb-pulse {
+      0%,100% { transform:translate(-50%,-50%) scale(1); opacity:1; }
+      50%      { transform:translate(-50%,-50%) scale(1.1); opacity:0.7; }
     }
 
+    /* Hero content */
+    .hero-content { position:relative; z-index:3; }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(26,127,255,0.1);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--blue2);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(124,58,237,0.1); border:1px solid var(--border);
+      border-radius:100px; padding:8px 18px;
+      font-size:0.76rem; font-weight:600; color:var(--blue2);
+      letter-spacing:0.08em; text-transform:uppercase; margin-bottom:28px;
     }
-
     .badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--blue2);
-      box-shadow: 0 0 8px var(--blue2);
-      animation: pulse 2s infinite;
+      content:''; width:6px; height:6px; border-radius:50%;
+      background:var(--blue2); box-shadow:0 0 8px var(--blue2);
+      animation:pulse 2s infinite;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
     h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      max-width: 800px;
-      margin: 0 auto 24px;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(2.4rem,5vw,4rem); font-weight:700;
+      line-height:1.12; letter-spacing:-0.03em;
+      max-width:820px; margin:0 auto 24px;
     }
-
     h1 .highlight {
-      background: linear-gradient(90deg, var(--blue), var(--blue2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      background:linear-gradient(90deg,var(--blue),var(--blue2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
+    .hero-sub { font-size:1.05rem; color:var(--muted); max-width:520px; margin:0 auto 44px; line-height:1.75; }
 
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 44px;
-      line-height: 1.7;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
+    .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
     .btn-primary {
-      background: var(--blue);
-      color: #fff;
-      padding: 15px 32px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-      box-shadow: 0 0 30px var(--glow);
+      background:var(--blue); color:#fff; padding:15px 32px; border-radius:10px;
+      text-decoration:none; font-weight:600; font-size:0.95rem;
+      transition:all 0.2s; box-shadow:0 0 30px var(--glow);
     }
-
-    .btn-primary:hover {
-      background: var(--blue2);
-      box-shadow: 0 0 50px rgba(0,170,255,0.45);
-      transform: translateY(-2px);
-    }
-
+    .btn-primary:hover { background:var(--blue2); box-shadow:0 0 50px rgba(0,170,255,0.45); transform:translateY(-2px); }
     .btn-ghost {
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 15px 32px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-      background: transparent;
+      border:1px solid var(--border); color:var(--text); padding:15px 32px; border-radius:10px;
+      text-decoration:none; font-weight:500; font-size:0.95rem; transition:all 0.2s;
     }
+    .btn-ghost:hover { border-color:var(--blue); color:var(--blue2); transform:translateY(-2px); }
 
-    .btn-ghost:hover {
-      border-color: var(--blue);
-      color: var(--blue2);
-      transform: translateY(-2px);
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      margin-top: 72px;
-      flex-wrap: wrap;
-    }
-
-    .stat { text-align: center; }
-
-    .stat-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .stat-num span { color: var(--blue2); }
-
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 4px;
-    }
+    .hero-stats { display:flex; justify-content:center; gap:48px; margin-top:64px; flex-wrap:wrap; }
+    .stat { text-align:center; }
+    .stat-num { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700; color:#fff; }
+    .stat-num span { color:var(--blue2); }
+    .stat-label { font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px; }
 
     /* ── SECTION SHARED ── */
-    section { position: relative; z-index: 1; }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 24px;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue2);
-      margin-bottom: 14px;
-    }
-
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 520px;
-    }
+    section { position:relative; z-index:1; }
+    .section-inner { max-width:1100px; margin:0 auto; padding:100px 24px; }
+    .section-label { font-size:0.74rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue2); margin-bottom:14px; }
+    .section-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.8rem,3vw,2.5rem); font-weight:700; letter-spacing:-0.03em; line-height:1.2; margin-bottom:16px; }
+    .section-sub { color:var(--muted); font-size:1rem; line-height:1.7; max-width:520px; }
 
     /* ── PRODUCTS ── */
-    #products { background: var(--navy2); }
-
-    .products-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .products-header .section-sub { margin: 0 auto; }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
+    #products { background:var(--navy2); }
+    .products-header { text-align:center; margin-bottom:64px; }
+    .products-header .section-sub { margin:0 auto; }
+    .products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; }
 
     .product-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:32px; transition:all 0.3s;
+      position:relative; overflow:hidden; display:flex; flex-direction:column;
     }
-
     .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--blue2), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,var(--blue2),transparent);
+      opacity:0; transition:opacity 0.3s;
     }
+    .product-card:hover { border-color:rgba(124,58,237,0.4); transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 40px var(--glow2); }
+    .product-card:hover::before { opacity:1; }
+    .product-card.featured { border-color:rgba(124,58,237,0.35); background:linear-gradient(135deg,rgba(15,10,30,0.95),rgba(124,58,237,0.05)); }
 
-    .product-card:hover {
-      border-color: rgba(26,127,255,0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--glow2);
-    }
-
-    .product-card:hover::before { opacity: 1; }
-
-    .product-card.featured {
-      border-color: rgba(26,127,255,0.35);
-      background: linear-gradient(135deg, rgba(13,22,40,0.95), rgba(26,127,255,0.05));
-    }
-
-    .product-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      width: fit-content;
-    }
-
-    .tag-new {
-      background: rgba(26,127,255,0.15);
-      color: var(--blue2);
-      border: 1px solid rgba(26,127,255,0.3);
-    }
-
-    .tag-coming {
-      background: rgba(255,170,0,0.1);
-      color: #ffaa00;
-      border: 1px solid rgba(255,170,0,0.25);
-    }
-
-    .product-icon {
-      font-size: 2.2rem;
-      margin-bottom: 18px;
-    }
-
-    .product-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      line-height: 1.3;
-    }
-
-    .product-desc {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      flex: 1;
-      margin-bottom: 28px;
-    }
-
-    .product-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .product-price {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .product-price sup {
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    .product-btn {
-      background: var(--blue);
-      color: #fff;
-      padding: 10px 22px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .product-btn:hover {
-      background: var(--blue2);
-      box-shadow: 0 0 20px var(--glow);
-    }
-
-    .product-btn.disabled {
-      background: rgba(255,255,255,0.06);
-      color: var(--muted);
-      cursor: default;
-      pointer-events: none;
-    }
+    .product-tag { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:5px 12px; border-radius:6px; margin-bottom:20px; width:fit-content; }
+    .tag-new { background:rgba(124,58,237,0.15); color:var(--blue2); border:1px solid rgba(124,58,237,0.3); }
+    .product-icon { font-size:2.2rem; margin-bottom:18px; }
+    .product-title { font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:12px; line-height:1.3; }
+    .product-desc { color:var(--muted); font-size:0.9rem; line-height:1.65; flex:1; margin-bottom:28px; }
+    .product-footer { display:flex; align-items:center; justify-content:space-between; }
+    .product-price { font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700; color:#fff; }
+    .product-price sup { font-size:0.85rem; color:var(--muted); font-weight:400; }
+    .product-btn { background:var(--blue); color:#fff; padding:10px 22px; border-radius:8px; font-size:0.85rem; font-weight:600; text-decoration:none; transition:all 0.2s; }
+    .product-btn:hover { background:var(--blue2); box-shadow:0 0 20px var(--glow); }
 
     /* ── WHY ── */
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .why-items { display: flex; flex-direction: column; gap: 28px; }
-
-    .why-item {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .why-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      background: rgba(26,127,255,0.1);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .why-text h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
-
-    .why-text p {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
-    }
-
-    .why-visual {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-    }
-
-    .why-visual-icon { font-size: 4rem; margin-bottom: 20px; }
-
-    .why-visual h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .why-visual p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .why-items { display:flex; flex-direction:column; gap:28px; }
+    .why-item { display:flex; gap:18px; align-items:flex-start; }
+    .why-icon { width:44px; height:44px; border-radius:10px; background:rgba(124,58,237,0.1); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+    .why-text h4 { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1rem; margin-bottom:6px; }
+    .why-text p { color:var(--muted); font-size:0.88rem; line-height:1.6; }
+    .why-visual { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:40px; text-align:center; }
+    .why-visual-icon { font-size:4rem; margin-bottom:20px; }
+    .why-visual h3 { font-family:'Space Grotesk',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:10px; }
+    .why-visual p { color:var(--muted); font-size:0.9rem; line-height:1.6; }
 
     /* ── ABOUT ── */
-    #about { background: var(--navy2); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .about-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-    }
-
-    .about-avatar {
-      width: 90px; height: 90px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #fff;
-      margin: 0 auto 20px;
-      box-shadow: 0 0 30px var(--glow);
-    }
-
-    .about-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .about-role {
-      color: var(--blue2);
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 20px;
-    }
-
-    .about-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-    }
-
-    .about-tag {
-      background: rgba(26,127,255,0.1);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 12px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .about-text { }
-
-    .about-text p {
-      color: var(--muted);
-      font-size: 0.97rem;
-      line-height: 1.8;
-      margin-bottom: 18px;
-    }
-
-    .about-text p:last-child { margin-bottom: 0; }
-
-    .about-text strong { color: var(--text); }
+    #about { background:var(--navy2); }
+    .about-grid { display:grid; grid-template-columns:1fr 1.6fr; gap:64px; align-items:center; }
+    .about-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:40px; text-align:center; }
+    .about-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue2)); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700; color:#fff; margin:0 auto 20px; box-shadow:0 0 30px var(--glow); }
+    .about-name { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:700; margin-bottom:6px; }
+    .about-role { color:var(--blue2); font-size:0.85rem; font-weight:500; margin-bottom:20px; }
+    .about-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+    .about-tag { background:rgba(124,58,237,0.1); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:0.78rem; color:var(--muted); }
+    .about-text p { color:var(--muted); font-size:0.97rem; line-height:1.8; margin-bottom:18px; }
+    .about-text p:last-child { margin-bottom:0; }
+    .about-text strong { color:var(--text); }
 
     /* ── CTA ── */
-    #cta {
-      text-align: center;
-    }
-
-    .cta-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 100px 24px;
-    }
-
-    .cta-box {
-      background: linear-gradient(135deg, rgba(26,127,255,0.08), rgba(0,170,255,0.04));
-      border: 1px solid rgba(26,127,255,0.25);
-      border-radius: 24px;
-      padding: 64px 40px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-box::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(ellipse, rgba(26,127,255,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-box h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .cta-box p {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-      margin-bottom: 36px;
-    }
+    #cta { text-align:center; }
+    .cta-inner { max-width:700px; margin:0 auto; padding:100px 24px; }
+    .cta-box { background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(0,170,255,0.04)); border:1px solid rgba(124,58,237,0.25); border-radius:24px; padding:64px 40px; position:relative; overflow:hidden; }
+    .cta-box::before { content:''; position:absolute; top:-50%; left:50%; transform:translateX(-50%); width:400px; height:400px; background:radial-gradient(ellipse,rgba(124,58,237,0.08) 0%,transparent 70%); pointer-events:none; }
+    .cta-box h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; letter-spacing:-0.03em; margin-bottom:16px; }
+    .cta-box p { color:var(--muted); font-size:1rem; line-height:1.7; margin-bottom:36px; }
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      z-index: 1;
-      flex-wrap: wrap;
-      gap: 20px;
+    footer { border-top:1px solid var(--border); padding:40px 60px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; flex-wrap:wrap; gap:20px; }
+    .footer-logo { font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:700; color:#fff; text-decoration:none; }
+    .footer-logo span { color:var(--blue2); }
+    .footer-links { display:flex; gap:28px; list-style:none; }
+    .footer-links a { color:var(--muted); text-decoration:none; font-size:0.85rem; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--blue2); }
+    .footer-copy { color:var(--muted); font-size:0.8rem; }
+    @media(max-width:768px){ footer{flex-direction:column;text-align:center;} .footer-links{flex-wrap:wrap;justify-content:center;} .why-grid,.about-grid{grid-template-columns:1fr;} }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-left { opacity:0; transform:translateX(-30px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal-left.visible { opacity:1; transform:translateX(0); }
+    .reveal-right { opacity:0; transform:translateX(30px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal-right.visible { opacity:1; transform:translateX(0); }
+
+    /* Port scene at bottom of hero */
+    .port-scene {
+      position:absolute; bottom:60px; right:40px; opacity:0.18; z-index:2;
+      animation: port-glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes port-glow { from{opacity:0.15} to{opacity:0.25} }
+
+    /* Animated crane */
+    .crane-container {
+      position:absolute; bottom:55px; right:80px; z-index:2; opacity:0.22;
     }
 
-    .footer-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .footer-logo span { color: var(--blue2); }
-
-    .footer-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--blue2); }
-
-    .footer-copy {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      nav ul { display: none; }
-      .why-grid,
-      .about-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
-    }
+    /* Counter animation */
+    .count-up { display:inline-block; }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAV -->
   <nav>
     <a href="#" class="logo">The Forwarder's<span>Desk</span></a>
     <ul>
@@ -679,76 +330,184 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-glow"></div>
-    <div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Route lines SVG -->
+    <svg class="route-lines" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+      <path class="route-path" d="M-100,400 Q200,200 500,350 Q800,500 1100,280 Q1300,180 1600,320" stroke-dashoffset="0"/>
+      <path class="route-path" d="M-50,600 Q300,450 600,550 Q900,650 1200,420 Q1380,340 1600,480" stroke-dashoffset="28" style="opacity:0.6"/>
+      <path class="route-path" d="M0,200 Q400,350 700,180 Q1000,50 1300,200 Q1420,260 1600,150" stroke-dashoffset="14" style="opacity:0.5"/>
+      <!-- Dots at path intersections -->
+      <circle cx="500" cy="350" r="4" fill="#00aaff" opacity="0.5">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="900" cy="480" r="3" fill="#7c3aed" opacity="0.4">
+        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1100" cy="280" r="4" fill="#00aaff" opacity="0.5">
+        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="300" cy="450" r="3" fill="#7c3aed" opacity="0.4">
+        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+
+    <!-- Cargo Ship SVG -->
+    <div class="ship-container">
+      <svg width="200" height="70" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Hull -->
+        <path d="M10,45 L190,45 L180,62 Q160,70 100,70 Q40,70 20,62 Z" fill="#0a0514" stroke="#7c3aed" stroke-width="1.5"/>
+        <!-- Deck -->
+        <rect x="15" y="30" width="170" height="16" rx="2" fill="#1a0f2e" stroke="#7c3aed" stroke-width="1"/>
+        <!-- Containers row 1 -->
+        <rect x="25" y="18" width="28" height="13" rx="2" fill="#7c3aed" opacity="0.8"/>
+        <rect x="57" y="18" width="28" height="13" rx="2" fill="#00aaff" opacity="0.7"/>
+        <rect x="89" y="18" width="28" height="13" rx="2" fill="#7c3aed" opacity="0.8"/>
+        <rect x="121" y="18" width="28" height="13" rx="2" fill="#5b21b6" opacity="0.7"/>
+        <rect x="153" y="18" width="22" height="13" rx="2" fill="#00aaff" opacity="0.6"/>
+        <!-- Containers row 2 -->
+        <rect x="35" y="7" width="24" height="12" rx="2" fill="#5b21b6" opacity="0.7"/>
+        <rect x="63" y="7" width="24" height="12" rx="2" fill="#7c3aed" opacity="0.8"/>
+        <rect x="95" y="7" width="24" height="12" rx="2" fill="#00aaff" opacity="0.6"/>
+        <rect x="123" y="7" width="24" height="12" rx="2" fill="#7c3aed" opacity="0.7"/>
+        <!-- Bridge/cabin -->
+        <rect x="155" y="0" width="30" height="19" rx="3" fill="#0a0514" stroke="#7c3aed" stroke-width="1"/>
+        <rect x="159" y="4" width="8" height="6" rx="1" fill="#00aaff" opacity="0.5"/>
+        <rect x="170" y="4" width="8" height="6" rx="1" fill="#00aaff" opacity="0.5"/>
+        <!-- Chimney -->
+        <rect x="168" y="-8" width="6" height="10" rx="1" fill="#0a0514" stroke="#7c3aed" stroke-width="1"/>
+        <!-- Smoke -->
+        <circle cx="171" cy="-12" r="4" fill="#7c3aed" opacity="0.2">
+          <animate attributeName="cy" values="-12;-20;-12" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.2;0;0.2" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Wake lines -->
+        <path d="M0,67 Q30,63 60,67 Q90,71 120,67" stroke="#7c3aed" stroke-width="1" opacity="0.4" fill="none">
+          <animate attributeName="d" values="M0,67 Q30,63 60,67 Q90,71 120,67;M0,69 Q30,65 60,69 Q90,73 120,69;M0,67 Q30,63 60,67 Q90,71 120,67" dur="1.5s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </div>
+
+    <!-- Cargo Plane SVG -->
+    <div class="plane-container">
+      <svg width="140" height="50" viewBox="0 0 140 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Fuselage -->
+        <path d="M130,22 Q140,25 130,28 L10,32 Q2,30 5,25 Q2,20 10,18 Z" fill="#0a0514" stroke="#7c3aed" stroke-width="1.2"/>
+        <!-- Nose -->
+        <path d="M5,25 Q0,25 2,22 L5,18 Z" fill="#7c3aed" opacity="0.8"/>
+        <!-- Main wing -->
+        <path d="M60,25 L80,5 L95,5 L75,25 Z" fill="#1a0f2e" stroke="#7c3aed" stroke-width="1"/>
+        <path d="M60,25 L75,45 L90,45 L72,25 Z" fill="#1a0f2e" stroke="#00aaff" stroke-width="0.8" opacity="0.7"/>
+        <!-- Tail wing -->
+        <path d="M120,24 L130,12 L135,12 L125,24 Z" fill="#1a0f2e" stroke="#7c3aed" stroke-width="0.8"/>
+        <path d="M120,26 L128,36 L133,36 L123,26 Z" fill="#1a0f2e" stroke="#00aaff" stroke-width="0.8" opacity="0.6"/>
+        <!-- Windows -->
+        <circle cx="30" cy="23" r="2.5" fill="#00aaff" opacity="0.6"/>
+        <circle cx="42" cy="22" r="2.5" fill="#00aaff" opacity="0.5"/>
+        <circle cx="54" cy="22" r="2.5" fill="#00aaff" opacity="0.5"/>
+        <!-- Engines -->
+        <ellipse cx="72" cy="8" rx="5" ry="2.5" fill="#0a0514" stroke="#7c3aed" stroke-width="0.8"/>
+        <!-- Contrail -->
+        <line x1="130" y1="25" x2="160" y2="25" stroke="#00aaff" stroke-width="1" opacity="0.3" stroke-dasharray="4 4"/>
+      </svg>
+    </div>
+
+    <!-- Port crane (right side) -->
+    <div class="crane-container">
+      <svg width="60" height="100" viewBox="0 0 60 100" fill="none">
+        <!-- Crane vertical -->
+        <rect x="25" y="20" width="6" height="80" fill="#7c3aed" opacity="0.6"/>
+        <!-- Crane horizontal arm -->
+        <rect x="5" y="20" width="50" height="4" fill="#7c3aed" opacity="0.6"/>
+        <!-- Cable -->
+        <line x1="20" y1="24" x2="20" y2="60" stroke="#00aaff" stroke-width="1.5" opacity="0.8">
+          <animate attributeName="y2" values="60;75;60" dur="3s" repeatCount="indefinite"/>
+        </line>
+        <!-- Hook container -->
+        <rect x="14" y="60" width="12" height="8" rx="1" fill="#7c3aed" opacity="0.7">
+          <animate attributeName="y" values="60;75;60" dur="3s" repeatCount="indefinite"/>
+        </rect>
+        <!-- Base -->
+        <rect x="20" y="96" width="16" height="4" rx="1" fill="#7c3aed" opacity="0.5"/>
+        <!-- Wheels -->
+        <circle cx="22" cy="100" r="3" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
+        <circle cx="34" cy="100" r="3" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <!-- Ocean waves -->
+    <div class="ocean">
+      <div class="wave"></div>
+      <div class="wave2"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
       <div class="badge">Based in Dubai, UAE &nbsp;·&nbsp; Trusted by Freight Pros</div>
       <h1>Tools Built for<br /><span class="highlight">Real Freight Work</span></h1>
-      <p class="hero-sub">
-        Practical, no-fluff resources for logistics students, freight coordinators, and small exporters who need clarity — not another long manual.
-      </p>
+      <p class="hero-sub">Practical, no-fluff resources for logistics students, freight coordinators, and small exporters who need clarity — not another long manual.</p>
       <div class="hero-btns">
         <a href="#products" class="btn-primary">Browse Products</a>
         <a href="#about" class="btn-ghost">Our Story</a>
       </div>
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-num">3<span>+</span></div>
-          <div class="stat-label">Products in the shelf</div>
+          <div class="stat-num"><span class="count-up" data-target="3">0</span><span style="color:var(--blue2)">+</span></div>
+          <div class="stat-label">Products Live</div>
         </div>
         <div class="stat">
-          <div class="stat-num">$<span>5</span></div>
-          <div class="stat-label">Starts from</div>
+          <div class="stat-num" style="color:var(--blue2)">$<span class="count-up" data-target="5">0</span></div>
+          <div class="stat-label">Starts From</div>
         </div>
         <div class="stat">
-          <div class="stat-num"><span>100</span>%</div>
-          <div class="stat-label">Instant download</div>
+          <div class="stat-num"><span class="count-up" data-target="100">0</span><span style="color:var(--blue2)">%</span></div>
+          <div class="stat-label">Instant Download</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PRODUCTS -->
-  <section id="products">
+  <section id="products" style="background:var(--navy2);">
     <div class="section-inner">
-      <div class="products-header">
+      <div class="products-header reveal">
         <div class="section-label">The Shelf</div>
         <h2 class="section-title">Freight Resources, Done Right</h2>
         <p class="section-sub">Every product is built from real experience — not copied from textbooks. Instant download, print-ready, and built for daily use.</p>
       </div>
       <div class="products-grid">
 
-        <!-- Product 1 -->
-        <div class="product-card featured">
+        <div class="product-card featured reveal" style="transition-delay:0.1s">
           <div class="product-tag tag-new">✦ Live Now</div>
           <div class="product-icon">📋</div>
           <div class="product-title">Incoterms® 2020 Cheat Sheet</div>
           <p class="product-desc">All 11 Incoterms 2020 rules on one page. At-a-glance breakdown of cost, risk, and insurance responsibilities — for sea and multimodal freight.</p>
           <div class="product-footer">
             <div class="product-price"><sup>USD </sup>5</div>
-            <a href="https://payhip.com/b/CVApt" target="_blank" class="product-btn">Buy Now →</a>
+            <a href="https://payhip.com/b/CVApt" class="payhip-buy-button product-btn" data-theme="blue" data-product="CVApt">Buy Now →</a>
           </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="product-card featured">
+        <div class="product-card featured reveal" style="transition-delay:0.2s">
           <div class="product-tag tag-new">✦ Live Now</div>
           <div class="product-icon">✅</div>
           <div class="product-title">Export Documentation Checklist</div>
           <p class="product-desc">Ship without the scramble. Every document you need — pre-shipment, booking, customs clearance, and L/C compliance — in one printable checklist.</p>
           <div class="product-footer">
             <div class="product-price"><sup>USD </sup>7</div>
-            <a href="https://payhip.com/b/DWQny" class="payhip-buy-button product-btn" data-theme="blue" data-product="DWQny">Buy Now</a>
+            <a href="https://payhip.com/b/DWQny" class="payhip-buy-button product-btn" data-theme="blue" data-product="DWQny">Buy Now →</a>
           </div>
         </div>
 
-        <!-- Product 3 -->
-        <div class="product-card featured">
+        <div class="product-card featured reveal" style="transition-delay:0.3s">
           <div class="product-tag tag-new">✦ Live Now</div>
           <div class="product-icon">📊</div>
           <div class="product-title">Freight Quotation Calculator</div>
           <p class="product-desc">Quote sea and air freight in minutes. FCL, LCL, chargeable weight, surcharges, margin builder — all in one Excel + Google Sheets file.</p>
           <div class="product-footer">
             <div class="product-price"><sup>USD </sup>9</div>
-            <a href="https://payhip.com/b/mVUIK" class="payhip-buy-button product-btn" data-theme="blue" data-product="mVUIK">Buy Now</a>
+            <a href="https://payhip.com/b/mVUIK" class="payhip-buy-button product-btn" data-theme="blue" data-product="mVUIK">Buy Now →</a>
           </div>
         </div>
 
@@ -760,73 +519,76 @@
   <section id="why">
     <div class="section-inner">
       <div class="why-grid">
-        <div>
+        <div class="reveal-left">
           <div class="section-label">Why The Forwarder's Desk</div>
           <h2 class="section-title">Made by Someone Who's Done the Job</h2>
-          <p class="section-sub" style="margin-bottom: 40px;">Not written by a consultant. Not pulled from a textbook. Built from 3 years of daily freight work.</p>
+          <p class="section-sub" style="margin-bottom:40px">Not written by a consultant. Not pulled from a textbook. Built from 3 years of daily freight work.</p>
           <div class="why-items">
             <div class="why-item">
               <div class="why-icon">⚡</div>
-              <div class="why-text">
-                <h4>Instant Download</h4>
-                <p>Pay once, download immediately. No subscriptions, no waiting. Your file is ready the moment you check out.</p>
-              </div>
+              <div class="why-text"><h4>Instant Download</h4><p>Pay once, download immediately. No subscriptions, no waiting.</p></div>
             </div>
             <div class="why-item">
               <div class="why-icon">🖨️</div>
-              <div class="why-text">
-                <h4>Print-Ready Formats</h4>
-                <p>Every PDF comes in A4 and US Letter. Spreadsheets work in Excel and Google Sheets. No special software needed.</p>
-              </div>
+              <div class="why-text"><h4>Print-Ready Formats</h4><p>Every PDF comes in A4 and US Letter. Spreadsheets work in Excel and Google Sheets.</p></div>
             </div>
             <div class="why-item">
               <div class="why-icon">🎯</div>
-              <div class="why-text">
-                <h4>Niche-Specific</h4>
-                <p>These resources are built for freight and logistics — not generic business templates dressed up with shipping jargon.</p>
-              </div>
+              <div class="why-text"><h4>Niche-Specific</h4><p>Built for freight and logistics — not generic business templates dressed up with shipping jargon.</p></div>
             </div>
             <div class="why-item">
               <div class="why-icon">💰</div>
-              <div class="why-text">
-                <h4>Fair Pricing</h4>
-                <p>Everything starts at $5. Professional-grade tools shouldn't cost a course fee.</p>
-              </div>
+              <div class="why-text"><h4>Fair Pricing</h4><p>Everything starts at $5. Professional-grade tools shouldn't cost a course fee.</p></div>
             </div>
           </div>
         </div>
-        <div class="why-visual">
-          <div class="why-visual-icon">🚢</div>
+        <div class="why-visual reveal-right">
+          <!-- Animated ship in why section -->
+          <div style="font-size:4rem;margin-bottom:20px;position:relative;">
+            🚢
+            <span style="position:absolute;top:-10px;right:-10px;font-size:1.5rem;animation:float-icon 2s ease-in-out infinite alternate;">✈️</span>
+          </div>
           <h3>Built for the Freight Floor</h3>
           <p>Whether you're studying for your FIATA exam, handling your first LCL shipment, or quoting rates for a client — The Forwarder's Desk has something for you.</p>
+          <br/>
+          <!-- Mini animated route -->
+          <svg width="100%" height="40" viewBox="0 0 300 40" style="margin-top:10px;opacity:0.5">
+            <path d="M0,20 Q75,5 150,20 Q225,35 300,20" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6 4">
+              <animate attributeName="stroke-dashoffset" values="0;-40" dur="2s" repeatCount="indefinite"/>
+            </path>
+            <circle cx="0" cy="20" r="4" fill="#7c3aed"/>
+            <circle cx="150" cy="20" r="4" fill="#00aaff">
+              <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="300" cy="20" r="4" fill="#7c3aed"/>
+          </svg>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" style="background:var(--navy2);">
     <div class="section-inner">
       <div class="about-grid">
-        <div class="about-card">
+        <div class="about-card reveal-left">
           <div class="about-avatar">P</div>
           <div class="about-name">Prajit (Jithu)</div>
           <div class="about-role">Freight & Logistics Professional</div>
           <div class="about-tags">
-            <span class="about-tag">Sea Freight</span>
-            <span class="about-tag">Export Ops</span>
-            <span class="about-tag">Documentation</span>
-            <span class="about-tag">Dubai, UAE</span>
+            <span class="about-tag">🚢 Sea Freight</span>
+            <span class="about-tag">📦 Export Ops</span>
+            <span class="about-tag">📄 Documentation</span>
+            <span class="about-tag">🇦🇪 Dubai, UAE</span>
             <span class="about-tag">3 Yrs Experience</span>
           </div>
         </div>
-        <div class="about-text">
+        <div class="about-text reveal-right">
           <div class="section-label">The Story</div>
           <h2 class="section-title">What I Wish I Had When I Started</h2>
           <p>Hi, I'm Prajit — I've spent the last 3 years working in shipping and logistics, across customer service, sales coordination, and export operations, with a focus on <strong>sea freight and documentation</strong>.</p>
           <p>Early on, I spent a lot of time searching for simple, practical resources that actually made sense on the job. Most of what I found was either too academic or buried in long manuals nobody has time to read.</p>
           <p><strong>The Forwarder's Desk</strong> is what I wish I had when I started — clear, no-fluff tools and references built for people who are learning the industry or handling shipments without a big team behind them.</p>
-          <p>If you're a logistics student, a new coordinator, or a small exporter figuring things out — these resources are made for you.</p>
         </div>
       </div>
     </div>
@@ -835,7 +597,7 @@
   <!-- CTA -->
   <section id="cta">
     <div class="cta-inner">
-      <div class="cta-box">
+      <div class="cta-box reveal">
         <h2>Ready to Work Smarter?</h2>
         <p>Start with the Incoterms 2020 Cheat Sheet — one page, all 11 rules, zero confusion. More products dropping soon.</p>
         <a href="https://payhip.com/TheForwardersDesk" target="_blank" class="btn-primary">Visit the Shop →</a>
@@ -855,5 +617,873 @@
     <div class="footer-copy">© 2026 The Forwarder's Desk · Dubai, UAE</div>
   </footer>
 
+  <script>
+    // ── PARTICLES ──
+    const pContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3 + 1;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        top:${Math.random()*100}%;
+        animation-duration:${Math.random()*6+4}s;
+        animation-delay:${Math.random()*6}s;
+      `;
+      pContainer.appendChild(p);
+    }
+
+    // ── FLOATING CONTAINERS ──
+    const hero = document.getElementById('hero');
+    const containerColors = ['#7c3aed','#00aaff','#5b21b6','#3b0fa0'];
+    for (let i = 0; i < 8; i++) {
+      const c = document.createElement('div');
+      c.className = 'container-float';
+      const w = Math.random()*30+15, h = Math.random()*18+10;
+      c.style.cssText = `
+        width:${w}px; height:${h}px; border-radius:2px;
+        background:${containerColors[Math.floor(Math.random()*4)]};
+        left:${Math.random()*90+5}%;
+        bottom:${Math.random()*40+60}px;
+        animation-duration:${Math.random()*4+5}s;
+        animation-delay:${Math.random()*5}s;
+      `;
+      hero.appendChild(c);
+    }
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
+
+    // ── COUNTER ANIMATION ──
+    const counters = document.querySelectorAll('.count-up');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          let start = 0;
+          const duration = 1500;
+          const step = target / (duration / 16);
+          const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { el.textContent = target; clearInterval(timer); }
+            else { el.textContent = Math.floor(start); }
+          }, 16);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => countObserver.observe(c));
+
+    // ── FLOAT ICON KEYFRAME ──
+    const style = document.createElement('style');
+    style.textContent = `@keyframes float-icon { from{transform:translateY(0) rotate(-10deg)} to{transform:translateY(-8px) rotate(10deg)} }`;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://crazydreamer18.github.io/theforwardersdesk/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+
+# The Forwarder's Desk — Gumroad Product Listings
+
+> **Platform note:** Gumroad requires a foreign Tax ID for sellers; UAE individuals are not issued one. If support hasn't resolved this, publish on **Payhip** instead — the listing copy below works on both platforms without changes.
+
+---
+
+## PRODUCT 1 — Incoterms 2020 Cheat Sheet
+
+**Listing Title**
+Incoterms 2020 Cheat Sheet — Printable PDF Quick Reference for Freight & Trade
+
+**Price:** $5
+
+**Short Pitch (optional subtitle field on Gumroad/Payhip)**
+Stop second-guessing who pays for what. One page, all 11 rules, zero confusion.
+
+**Description**
+
+Incoterms trip up even experienced people in freight. Who arranges the main carriage? Who insures the cargo? Where does risk transfer? The wrong assumption costs money.
+
+This printable cheat sheet puts every answer on one page, formatted for real-world use — not a legal textbook.
+
+**What's inside:**
+- All 11 Incoterms 2020 rules (EXW through DDP) laid out side by side
+- At-a-glance breakdown of seller vs. buyer responsibilities for cost, risk, and insurance
+- Which rules apply to sea freight only vs. any transport mode
+- Key changes from Incoterms 2010 highlighted
+- Print-ready A4 + US Letter formats included
+
+**Who this is for:**
+- Logistics students preparing for FIATA, CILT, or freight forwarding exams
+- New freight coordinators getting up to speed on trade terms
+- Small exporters negotiating terms with overseas buyers for the first time
+- Anyone who keeps Googling "what does CIF actually mean"
+
+Print it. Pin it to your desk. Stop looking it up.
+
+**Tags**
+incoterms, incoterms 2020, freight forwarding, logistics, export, import, trade terms, shipping, supply chain, cheat sheet, printable PDF, freight coordinator, logistics student
+
+---
+
+## PRODUCT 2 — Export Documentation Checklist
+
+**Listing Title**
+Export Documentation Checklist — Printable PDF for Freight Coordinators & Small Exporters
+
+**Suggested Price:** $7
+
+**Short Pitch**
+Ship without the scramble. Every document you need, in the order you need it.
+
+**Description**
+
+A missing document can hold a shipment at the port, trigger customs delays, or blow up a letter of credit. Most checklists online are either too generic or buried in 40-page guides.
+
+This one is built for freight coordinators and small exporters who need to move cargo without mistakes.
+
+**What's inside:**
+- Pre-shipment checklist: Commercial Invoice, Packing List, Certificate of Origin, L/C documents, phytosanitary or health certificates (where applicable)
+- At-booking checklist: Bill of Lading / Airway Bill requirements, shipper's letter of instruction (SLI), booking confirmation
+- Customs clearance checklist: import/export declarations, HS code verification, duty and tax documentation
+- L/C compliance mini-checklist: the 5 most common discrepancies that cause rejection
+- Notes column on every section — customize per shipment or commodity
+
+Available as a print-ready PDF (A4 + US Letter).
+
+**Who this is for:**
+- Freight coordinators managing their first few shipments solo
+- Small exporters handling their own documentation for the first time
+- Logistics students learning the documentation flow end to end
+- Operations teams who want a paper trail checklist per shipment
+
+One missed document costs more than this checklist.
+
+**Tags**
+export documentation, freight forwarding, shipping checklist, bill of lading, commercial invoice, certificate of origin, logistics, customs clearance, letter of credit, export compliance, printable PDF, freight coordinator, supply chain
+
+---
+
+## PRODUCT 3 — Freight Quotation Calculator
+
+**Listing Title**
+Freight Quotation Calculator — Excel Spreadsheet for Freight Forwarders & Coordinators
+
+**Suggested Price:** $9
+
+**Short Pitch**
+Quote sea and air freight in minutes, not hours. Built for real-world charge structures.
+
+**Description**
+
+Putting together a freight quotation from scratch — pulling together origin charges, main carriage, destination fees, customs, insurance — takes time you don't always have. And if you miss a line item, you eat the cost.
+
+This spreadsheet is built the way freight forwarders actually work.
+
+**What's inside:**
+- Sea freight tab: FCL (20' / 40' / 40'HC) and LCL (per CBM/ton) rate input, with auto-calculated totals
+- Air freight tab: chargeable weight calculator (actual vs. volumetric), rate per kg, fuel and security surcharges
+- Charges breakdown: origin, main carriage, destination, customs, insurance — line by line
+- Margin builder: add your markup % or fixed fee and see the sell rate auto-update
+- Summary quote tab: clean output you can screenshot or print for clients
+- Editable surcharge labels — rename any line item to match your market or carrier
+
+Works in Microsoft Excel and Google Sheets. No macros, no locked cells.
+
+**Who this is for:**
+- Freight coordinators quoting clients without a TMS or rate management system
+- Freelance forwarders building a lean quoting process
+- Logistics students learning how a freight quotation is structured
+- Small freight companies replacing their manual Excel sheets with something cleaner
+
+**Tags**
+freight quotation, freight calculator, sea freight, air freight, FCL, LCL, chargeable weight, freight forwarding, logistics, Excel spreadsheet, Google Sheets, shipping rate, freight coordinator, supply chain tools
+
+---
+
+## BRANDING CONSISTENCY NOTES
+
+Apply these across every listing in the shop:
+
+| Element | Standard |
+|---|---|
+| Store name | The Forwarder's Desk |
+| Tone | Direct, practical, no fluff — written for people who work in freight |
+| Price anchoring | $5 (reference), $7 (mid), $9–12 (tools/calculators) |
+| Format note | Always mention "A4 + US Letter" for PDFs, "Excel + Google Sheets" for spreadsheets |
+| Target buyer line | Always name at least 3 of: logistics students / freight coordinators / small exporters / FIATA/CILT students |
+| CTA style | One practical, no-hype closing line (e.g. "Print it. Pin it to your desk.") |
+
+---
+
+## GUMROAD SETUP STEPS (when you're ready to publish)
+
+1. Go to gumroad.com → Dashboard → New Product → Digital Product
+2. Upload the PDF file
+3. Paste the **Listing Title** into the product name field
+4. Set price to $5
+5. Paste the **Description** into the description box (Gumroad supports basic formatting — use line breaks and dashes as written above)
+6. Add tags from the **Tags** list (Gumroad allows up to 10)
+7. Upload a cover image (1280×720px recommended — use a clean mockup of the PDF on a desk background)
+8. Publish
+
+> **If Gumroad tax form blocks you:** Switch to Payhip (payhip.com). The setup flow is nearly identical, and Payhip doesn't require a Tax ID for UAE-based sellers. Paste the same copy.
+
+,loving-hopeful-gates,claude,16.06.2026 17:14,file:///sessions/loving-hopeful-gates/.config/libreoffice/4;
+from openpyxl import Workbook
+from openpyxl.styles import (Font, PatternFill, Alignment, Border, Side, 
+                              GradientFill)
+from openpyxl.utils import get_column_letter
+
+
+wb = Workbook()
+
+# ── COLOR PALETTE ──
+NAVY     = "0D1628"
+BLUE     = "1A7FFF"
+BLUE2    = "00AAFF"
+WHITE    = "FFFFFF"
+LIGHT    = "EBF3FF"
+LIGHT2   = "F5F9FF"
+YELLOW   = "FFFF00"
+GREEN_TX = "008000"
+BLUE_TX  = "0000FF"
+BLACK    = "000000"
+GRAY     = "D9D9D9"
+DGRAY    = "595959"
+ORANGE   = "FF6600"
+
+def hdr_font(size=11, bold=True, color=WHITE):
+    return Font(name="Arial", size=size, bold=bold, color=color)
+
+def body_font(size=10, bold=False, color=BLACK):
+    return Font(name="Arial", size=size, bold=bold, color=color)
+
+def input_font(size=10):
+    return Font(name="Arial", size=10, bold=False, color=BLUE_TX)
+
+def formula_font(size=10):
+    return Font(name="Arial", size=10, bold=False, color=BLACK)
+
+def link_font(size=10):
+    return Font(name="Arial", size=10, bold=False, color=GREEN_TX)
+
+def fill(hex_color):
+    return PatternFill("solid", fgColor=hex_color)
+
+def thin_border():
+    s = Side(style="thin", color="CCCCCC")
+    return Border(left=s, right=s, top=s, bottom=s)
+
+def center():
+    return Alignment(horizontal="center", vertical="center")
+
+def left():
+    return Alignment(horizontal="left", vertical="center")
+
+def right_align():
+    return Alignment(horizontal="right", vertical="center")
+
+def set_col(ws, col, width):
+    ws.column_dimensions[get_column_letter(col)].width = width
+
+def section_header(ws, row, col, text, span=5):
+    c = ws.cell(row=row, column=col, value=text)
+    c.font = Font(name="Arial", size=10, bold=True, color=WHITE)
+    c.fill = fill(NAVY)
+    c.alignment = left()
+    c.border = thin_border()
+    if span > 1:
+        ws.merge_cells(start_row=row, start_column=col,
+                       end_row=row, end_column=col+span-1)
+
+def label(ws, row, col, text, bg=LIGHT2):
+    c = ws.cell(row=row, column=col, value=text)
+    c.font = body_font()
+    c.fill = fill(bg)
+    c.alignment = left()
+    c.border = thin_border()
+
+def input_cell(ws, row, col, value=0, fmt='#,##0.00', note=None):
+    c = ws.cell(row=row, column=col, value=value)
+    c.font = input_font()
+    c.fill = fill(YELLOW)
+    c.alignment = right_align()
+    c.number_format = fmt
+    c.border = thin_border()
+    return c
+
+def formula_cell(ws, row, col, formula, fmt='#,##0.00', color=BLACK):
+    c = ws.cell(row=row, column=col, value=formula)
+    c.font = Font(name="Arial", size=10, color=color)
+    c.fill = fill(LIGHT)
+    c.alignment = right_align()
+    c.number_format = fmt
+    c.border = thin_border()
+    return c
+
+def text_input(ws, row, col, value="", width=None):
+    c = ws.cell(row=row, column=col, value=value)
+    c.font = input_font()
+    c.fill = fill(YELLOW)
+    c.alignment = left()
+    c.border = thin_border()
+    return c
+
+def dropdown_label(ws, row, col, text, bg=LIGHT2, span=1):
+    c = ws.cell(row=row, column=col, value=text)
+    c.font = body_font()
+    c.fill = fill(bg)
+    c.alignment = left()
+    c.border = thin_border()
+    if span > 1:
+        ws.merge_cells(start_row=row, start_column=col,
+                       end_row=row, end_column=col+span-1)
+
+# ══════════════════════════════════════════════
+# SHEET 1 — INSTRUCTIONS
+# ══════════════════════════════════════════════
+ws1 = wb.active
+ws1.title = "Instructions"
+ws1.sheet_view.showGridLines = False
+ws1.row_dimensions[1].height = 50
+set_col(ws1, 1, 4)
+set_col(ws1, 2, 60)
+set_col(ws1, 3, 30)
+
+# Title bar
+for c in range(1, 5):
+    ws1.cell(row=1, column=c).fill = fill(NAVY)
+t = ws1.cell(row=1, column=2, value="🚢  THE FORWARDER'S DESK — Freight Quotation Calculator")
+t.font = Font(name="Arial", size=16, bold=True, color=WHITE)
+t.alignment = left()
+ws1.merge_cells("B1:D1")
+
+rows = [
+    (3, "HOW TO USE THIS CALCULATOR", True, NAVY, WHITE, 14),
+    (5, "1.  SEA FREIGHT tab  →  Enter FCL or LCL shipment details to get a full sea freight quote.", False, WHITE, BLACK, 11),
+    (6, "2.  AIR FREIGHT tab  →  Enter dimensions and weight to calculate chargeable weight and air freight cost.", False, WHITE, BLACK, 11),
+    (7, "3.  QUOTE SUMMARY tab  →  Clean, client-ready output pulling from your chosen mode.", False, WHITE, BLACK, 11),
+    (9, "COLOR GUIDE", True, NAVY, WHITE, 12),
+    (11, "🔵  Blue text (yellow background)  =  INPUT cells — enter your rates and data here.", False, LIGHT2, BLUE_TX, 10),
+    (12, "⚫  Black text (light background)  =  FORMULA cells — calculated automatically. Do not edit.", False, LIGHT2, BLACK, 10),
+    (13, "🟢  Green text  =  Linked from another sheet in this workbook.", False, LIGHT2, GREEN_TX, 10),
+    (15, "TIPS", True, NAVY, WHITE, 12),
+    (17, "•  All rates are in USD unless you change the currency label.", False, WHITE, BLACK, 10),
+    (18, "•  Enter 0 for any charge that does not apply to your shipment.", False, WHITE, BLACK, 10),
+    (19, "•  Use the Margin % cell to apply your markup. The sell rate updates automatically.", False, WHITE, BLACK, 10),
+    (20, "•  The Quote Summary tab is print-ready. Use File → Print to share with clients.", False, WHITE, BLACK, 10),
+    (22, "Built by The Forwarder's Desk  |  payhip.com/TheForwardersDesk  |  Dubai, UAE", False, WHITE, DGRAY, 9),
+]
+
+for row, text, bold, bg, color, size in rows:
+    ws1.row_dimensions[row].height = 22
+    c = ws1.cell(row=row, column=2, value=text)
+    c.font = Font(name="Arial", size=size, bold=bold, color=color)
+    c.fill = fill(bg)
+    c.alignment = left()
+    ws1.merge_cells(f"B{row}:D{row}")
+
+
+# ══════════════════════════════════════════════
+# SHEET 2 — SEA FREIGHT
+# ══════════════════════════════════════════════
+ws2 = wb.create_sheet("Sea Freight")
+ws2.sheet_view.showGridLines = False
+set_col(ws2, 1, 3)
+set_col(ws2, 2, 32)
+set_col(ws2, 3, 18)
+set_col(ws2, 4, 18)
+set_col(ws2, 5, 18)
+set_col(ws2, 6, 18)
+
+# Title
+ws2.row_dimensions[1].height = 45
+for c in range(1, 7):
+    ws2.cell(row=1, column=c).fill = fill(NAVY)
+t = ws2.cell(row=1, column=2, value="🚢  SEA FREIGHT QUOTATION CALCULATOR")
+t.font = Font(name="Arial", size=14, bold=True, color=WHITE)
+t.alignment = left()
+ws2.merge_cells("B1:F1")
+
+# ── Shipment Info ──
+section_header(ws2, 3, 2, "SHIPMENT DETAILS", 5)
+fields_info = [
+    ("Customer / Company", ""),
+    ("Origin Port", ""),
+    ("Destination Port", ""),
+    ("Incoterm", ""),
+    ("Commodity", ""),
+    ("Date", ""),
+]
+for i, (lbl, val) in enumerate(fields_info):
+    r = 4 + i
+    ws2.row_dimensions[r].height = 20
+    label(ws2, r, 2, lbl)
+    text_input(ws2, r, 3, val)
+    ws2.merge_cells(start_row=r, start_column=3, end_row=r, end_column=5)
+
+# ── Cargo Details ──
+section_header(ws2, 11, 2, "CARGO DETAILS", 5)
+ws2.row_dimensions[11].height = 20
+
+# Headers row
+hdr_row = 12
+ws2.row_dimensions[hdr_row].height = 20
+for col, txt in [(2,"Description"),(3,"FCL 20'"),(4,"FCL 40'"),(5,"FCL 40'HC"),(6,"LCL (per CBM/ton)")]:
+    c = ws2.cell(row=hdr_row, column=col, value=txt)
+    c.font = Font(name="Arial", size=10, bold=True, color=WHITE)
+    c.fill = fill(BLUE)
+    c.alignment = center()
+    c.border = thin_border()
+
+cargo_rows = [
+    ("Number of Containers / CBM", 0, 0, 0, 0),
+    ("Gross Weight (kg)", 0, 0, 0, 0),
+]
+for i, (lbl, v1, v2, v3, v4) in enumerate(cargo_rows):
+    r = 13 + i
+    ws2.row_dimensions[r].height = 20
+    label(ws2, r, 2, lbl)
+    input_cell(ws2, r, 3, v1, '#,##0.00')
+    input_cell(ws2, r, 4, v2, '#,##0.00')
+    input_cell(ws2, r, 5, v3, '#,##0.00')
+    input_cell(ws2, r, 6, v4, '#,##0.00')
+
+# ── Ocean Freight & Surcharges ──
+section_header(ws2, 16, 2, "OCEAN FREIGHT & SURCHARGES (USD)", 5)
+ws2.row_dimensions[16].height = 20
+
+surcharge_rows = [
+    ("Ocean Freight Rate", 0, 0, 0, 0),
+    ("BAF — Bunker Adjustment Factor", 0, 0, 0, 0),
+    ("CAF — Currency Adjustment Factor", 0, 0, 0, 0),
+    ("LSS — Low Sulphur Surcharge", 0, 0, 0, 0),
+    ("PSS — Peak Season Surcharge", 0, 0, 0, 0),
+    ("Other Surcharge 1", 0, 0, 0, 0),
+    ("Other Surcharge 2", 0, 0, 0, 0),
+]
+for i, (lbl, v1, v2, v3, v4) in enumerate(surcharge_rows):
+    r = 17 + i
+    ws2.row_dimensions[r].height = 20
+    label(ws2, r, 2, lbl)
+    input_cell(ws2, r, 3, v1)
+    input_cell(ws2, r, 4, v2)
+    input_cell(ws2, r, 5, v3)
+    input_cell(ws2, r, 6, v4)
+
+# Subtotal ocean
+r = 24
+ws2.row_dimensions[r].height = 20
+label(ws2, r, 2, "Subtotal — Ocean Freight", LIGHT)
+for col in [3, 4, 5, 6]:
+    formula_cell(ws2, r, col, f"=SUM({get_column_letter(col)}17:{get_column_letter(col)}23)")
+
+# ── Origin Charges ──
+section_header(ws2, 26, 2, "ORIGIN CHARGES (USD)", 5)
+origin_rows = [
+    ("Origin THC / Port Charges", 0),
+    ("Documentation / BL Fee", 0),
+    ("Trucking / Haulage (Origin)", 0),
+    ("Export Customs Clearance", 0),
+    ("Other Origin Charge", 0),
+]
+for i, (lbl, val) in enumerate(origin_rows):
+    r = 27 + i
+    ws2.row_dimensions[r].height = 20
+    label(ws2, r, 2, lbl)
+    ws2.merge_cells(start_row=r, start_column=3, end_row=r, end_column=5)
+    input_cell(ws2, r, 3, val)
+    formula_cell(ws2, r, 6, f"=C{r}")
+
+r = 32
+ws2.row_dimensions[r].height = 20
+label(ws2, r, 2, "Subtotal — Origin Charges", LIGHT)
+ws2.merge_cells(start_row=r, start_column=3, end_row=r, end_column=5)
+formula_cell(ws2, r, 3, "=SUM(C27:C31)")
+formula_cell(ws2, r, 6, "=SUM(F27:F31)")
+
+# ── Destination Charges ──
+section_header(ws2, 34, 2, "DESTINATION CHARGES (USD)", 5)
+dest_rows = [
+    ("Destination THC / Port Charges", 0),
+    ("Import Customs Clearance", 0),
+    ("Delivery / Trucking (Destination)", 0),
+    ("Duties & Taxes (estimate)", 0),
+    ("Other Destination Charge", 0),
+]
+for i, (lbl, val) in enumerate(dest_rows):
+    r = 35 + i
+    ws2.row_dimensions[r].height = 20
+    label(ws2, r, 2, lbl)
+    ws2.merge_cells(start_row=r, start_column=3, end_row=r, end_column=5)
+    input_cell(ws2, r, 3, val)
+    formula_cell(ws2, r, 6, f"=C{r}")
+
+r = 40
+ws2.row_dimensions[r].height = 20
+label(ws2, r, 2, "Subtotal — Destination Charges", LIGHT)
+ws2.merge_cells(start_row=r, start_column=3, end_row=r, end_column=5)
+formula_cell(ws2, r, 3, "=SUM(C35:C39)")
+formula_cell(ws2, r, 6, "=SUM(F35:F39)")
+
+# ── Insurance ──
+section_header(ws2, 42, 2, "INSURANCE (USD)", 5)
+ws2.row_dimensions[43].height = 20
+label(ws2, 43, 2, "Cargo Value (USD)")
+ws2.merge_cells("C43:E43")
+input_cell(ws2, 43, 3, 0)
+
+ws2.row_dimensions[44].height = 20
+label(ws2, 44, 2, "Insurance Rate (%)")
+ws2.merge_cells("C44:E44")
+input_cell(ws2, 44, 3, 0.001, '0.000%')
+
+ws2.row_dimensions[45].height = 20
+label(ws2, 45, 2, "Insurance Premium")
+ws2.merge_cells("C45:E45")
+formula_cell(ws2, 45, 3, "=C43*C44")
+formula_cell(ws2, 45, 6, "=C45")
+
+# ── Cost Summary & Margin ──
+section_header(ws2, 47, 2, "COST SUMMARY & MARGIN", 5)
+ws2.row_dimensions[47].height = 20
+
+summary_rows = [
+    (48, "Total Buy Cost — 20' FCL", "=C24+C32+C40+C45", 3),
+    (49, "Total Buy Cost — 40' FCL", "=D24+C32+C40+C45", 4),
+    (50, "Total Buy Cost — 40'HC FCL", "=E24+C32+C40+C45", 5),
+    (51, "Total Buy Cost — LCL", "=F24+F32+F40+F45", 6),
+]
+for r, lbl, frm, col in summary_rows:
+    ws2.row_dimensions[r].height = 20
+    label(ws2, r, 2, lbl)
+    ws2.merge_cells(start_row=r, start_column=3, end_row=r, end_column=col-1 if col > 3 else 5)
+    formula_cell(ws2, r, col if col > 3 else 3, frm)
+
+ws2.row_dimensions[53].height = 20
+label(ws2, 53, 2, "Margin (%)")
+ws2.merge_cells("C53:F53")
+input_cell(ws2, 53, 3, 0.15, '0.0%')
+
+sell_rows = [
+    (55, "SELL RATE — 20' FCL", "=C48/(1-C53)"),
+    (56, "SELL RATE — 40' FCL", "=D49/(1-C53)"),
+    (57, "SELL RATE — 40'HC FCL", "=E50/(1-C53)"),
+    (58, "SELL RATE — LCL", "=F51/(1-C53)"),
+]
+for r, lbl, frm in sell_rows:
+    ws2.row_dimensions[r].height = 22
+    c = ws2.cell(row=r, column=2, value=lbl)
+    c.font = Font(name="Arial", size=10, bold=True, color=WHITE)
+    c.fill = fill(NAVY)
+    c.alignment = left()
+    c.border = thin_border()
+    ws2.merge_cells(start_row=r, start_column=2, end_row=r, end_column=5)
+    fc = ws2.cell(row=r, column=6, value=frm)
+    fc.font = Font(name="Arial", size=11, bold=True, color=WHITE)
+    fc.fill = fill(BLUE)
+    fc.alignment = right_align()
+    fc.number_format = '#,##0.00'
+    fc.border = thin_border()
+
+
+# ══════════════════════════════════════════════
+# SHEET 3 — AIR FREIGHT
+# ══════════════════════════════════════════════
+ws3 = wb.create_sheet("Air Freight")
+ws3.sheet_view.showGridLines = False
+set_col(ws3, 1, 3)
+set_col(ws3, 2, 32)
+set_col(ws3, 3, 22)
+set_col(ws3, 4, 22)
+
+ws3.row_dimensions[1].height = 45
+for c in range(1, 5):
+    ws3.cell(row=1, column=c).fill = fill(NAVY)
+t = ws3.cell(row=1, column=2, value="✈️  AIR FREIGHT QUOTATION CALCULATOR")
+t.font = Font(name="Arial", size=14, bold=True, color=WHITE)
+t.alignment = left()
+ws3.merge_cells("B1:D1")
+
+# Shipment info
+section_header(ws3, 3, 2, "SHIPMENT DETAILS", 3)
+air_info = [("Customer / Company",""),("Origin Airport",""),("Destination Airport",""),
+            ("Incoterm",""),("Commodity",""),("Date","")]
+for i,(lbl,val) in enumerate(air_info):
+    r = 4+i
+    ws3.row_dimensions[r].height = 20
+    label(ws3,r,2,lbl)
+    text_input(ws3,r,3,val)
+    ws3.merge_cells(start_row=r,start_column=3,end_row=r,end_column=4)
+
+# Cargo & Weight
+section_header(ws3,11,2,"CARGO & CHARGEABLE WEIGHT",3)
+ws3.row_dimensions[11].height = 20
+cargo_air = [
+    ("Gross Weight (kg)", 0, '#,##0.00'),
+    ("Length (cm)", 0, '#,##0.00'),
+    ("Width (cm)", 0, '#,##0.00'),
+    ("Height (cm)", 0, '#,##0.00'),
+    ("Number of Pieces", 1, '#,##0'),
+]
+for i,(lbl,val,fmt) in enumerate(cargo_air):
+    r=12+i
+    ws3.row_dimensions[r].height = 20
+    label(ws3,r,2,lbl)
+    input_cell(ws3,r,3,val,fmt)
+    ws3.merge_cells(start_row=r,start_column=3,end_row=r,end_column=4)
+
+# Calculated
+ws3.row_dimensions[17].height = 20
+label(ws3,17,2,"Volume (CBM)")
+formula_cell(ws3,17,3,"=(C13*C14*C15/1000000)*C16")
+ws3.merge_cells("C17:D17")
+
+ws3.row_dimensions[18].height = 20
+label(ws3,18,2,"Volumetric Weight (kg)  [CBM × 167]")
+formula_cell(ws3,18,3,"=C17*167")
+ws3.merge_cells("C18:D18")
+
+ws3.row_dimensions[19].height = 22
+c=ws3.cell(row=19,column=2,value="CHARGEABLE WEIGHT (kg)  =  MAX(Gross, Volumetric)")
+c.font=Font(name="Arial",size=10,bold=True,color=WHITE)
+c.fill=fill(NAVY)
+c.alignment=left()
+c.border=thin_border()
+fc=ws3.cell(row=19,column=3,value="=MAX(C12,C18)")
+fc.font=Font(name="Arial",size=11,bold=True,color=WHITE)
+fc.fill=fill(BLUE)
+fc.alignment=right_align()
+fc.number_format='#,##0.00'
+fc.border=thin_border()
+ws3.merge_cells("C19:D19")
+
+# Rates
+section_header(ws3,21,2,"FREIGHT RATES & SURCHARGES (USD)",3)
+air_rates = [
+    ("Rate per kg (USD)", 0),
+    ("Fuel Surcharge per kg", 0),
+    ("Security Surcharge per kg", 0),
+    ("Other Surcharge per kg", 0),
+]
+for i,(lbl,val) in enumerate(air_rates):
+    r=22+i
+    ws3.row_dimensions[r].height = 20
+    label(ws3,r,2,lbl)
+    input_cell(ws3,r,3,val)
+    ws3.merge_cells(start_row=r,start_column=3,end_row=r,end_column=4)
+
+ws3.row_dimensions[26].height = 20
+label(ws3,26,2,"Subtotal per kg")
+formula_cell(ws3,26,3,"=SUM(C22:C25)")
+ws3.merge_cells("C26:D26")
+
+ws3.row_dimensions[27].height = 20
+label(ws3,27,2,"Air Freight Cost  (Chargeable Wt × Rate)")
+formula_cell(ws3,27,3,"=C19*C26")
+ws3.merge_cells("C27:D27")
+
+# Origin/Dest charges
+section_header(ws3,29,2,"ORIGIN CHARGES (USD)",3)
+air_origin = [("Origin THC / Handling",0),("Documentation",0),("Trucking Origin",0),("Export Customs",0)]
+for i,(lbl,val) in enumerate(air_origin):
+    r=30+i
+    ws3.row_dimensions[r].height = 20
+    label(ws3,r,2,lbl)
+    input_cell(ws3,r,3,val)
+    ws3.merge_cells(start_row=r,start_column=3,end_row=r,end_column=4)
+ws3.row_dimensions[34].height = 20
+label(ws3,34,2,"Subtotal Origin")
+formula_cell(ws3,34,3,"=SUM(C30:C33)")
+ws3.merge_cells("C34:D34")
+
+section_header(ws3,36,2,"DESTINATION CHARGES (USD)",3)
+air_dest = [("Destination Handling",0),("Import Customs",0),("Delivery / Trucking",0),("Duties & Taxes",0)]
+for i,(lbl,val) in enumerate(air_dest):
+    r=37+i
+    ws3.row_dimensions[r].height = 20
+    label(ws3,r,2,lbl)
+    input_cell(ws3,r,3,val)
+    ws3.merge_cells(start_row=r,start_column=3,end_row=r,end_column=4)
+ws3.row_dimensions[41].height = 20
+label(ws3,41,2,"Subtotal Destination")
+formula_cell(ws3,41,3,"=SUM(C37:C40)")
+ws3.merge_cells("C41:D41")
+
+# Insurance
+section_header(ws3,43,2,"INSURANCE (USD)",3)
+ws3.row_dimensions[44].height = 20
+label(ws3,44,2,"Cargo Value (USD)")
+input_cell(ws3,44,3,0)
+ws3.merge_cells("C44:D44")
+ws3.row_dimensions[45].height = 20
+label(ws3,45,2,"Insurance Rate (%)")
+input_cell(ws3,45,3,0.001,'0.000%')
+ws3.merge_cells("C45:D45")
+ws3.row_dimensions[46].height = 20
+label(ws3,46,2,"Insurance Premium")
+formula_cell(ws3,46,3,"=C44*C45")
+ws3.merge_cells("C46:D46")
+
+# Total & Margin
+section_header(ws3,48,2,"COST SUMMARY & MARGIN",3)
+ws3.row_dimensions[49].height = 20
+label(ws3,49,2,"Total Buy Cost")
+formula_cell(ws3,49,3,"=C27+C34+C41+C46")
+ws3.merge_cells("C49:D49")
+
+ws3.row_dimensions[50].height = 20
+label(ws3,50,2,"Margin (%)")
+input_cell(ws3,50,3,0.15,'0.0%')
+ws3.merge_cells("C50:D50")
+
+ws3.row_dimensions[52].height = 22
+c=ws3.cell(row=52,column=2,value="SELL RATE — AIR FREIGHT")
+c.font=Font(name="Arial",size=10,bold=True,color=WHITE)
+c.fill=fill(NAVY)
+c.alignment=left()
+c.border=thin_border()
+fc=ws3.cell(row=52,column=3,value="=C49/(1-C50)")
+fc.font=Font(name="Arial",size=11,bold=True,color=WHITE)
+fc.fill=fill(BLUE)
+fc.alignment=right_align()
+fc.number_format='#,##0.00'
+fc.border=thin_border()
+ws3.merge_cells("C52:D52")
+
+
+# ══════════════════════════════════════════════
+# SHEET 4 — QUOTE SUMMARY
+# ══════════════════════════════════════════════
+ws4 = wb.create_sheet("Quote Summary")
+ws4.sheet_view.showGridLines = False
+set_col(ws4, 1, 3)
+set_col(ws4, 2, 35)
+set_col(ws4, 3, 20)
+set_col(ws4, 4, 20)
+
+ws4.row_dimensions[1].height = 55
+for c in range(1, 5):
+    ws4.cell(row=1, column=c).fill = fill(NAVY)
+t = ws4.cell(row=1, column=2, value="THE FORWARDER'S DESK  |  Freight Quotation")
+t.font = Font(name="Arial", size=15, bold=True, color=WHITE)
+t.alignment = left()
+ws4.merge_cells("B1:D1")
+
+# Mode selector
+ws4.row_dimensions[3].height = 20
+label(ws4,3,2,"Select Mode (Sea / Air)")
+inp = input_cell(ws4,3,3,"Sea",'@')
+ws4.merge_cells("C3:D3")
+
+# Shipment info pulled
+section_header(ws4,5,2,"SHIPMENT INFORMATION",3)
+summary_info = [
+    ("Customer", "='Sea Freight'!C4"),
+    ("Origin", "='Sea Freight'!C5"),
+    ("Destination", "='Sea Freight'!C6"),
+    ("Incoterm", "='Sea Freight'!C7"),
+    ("Date", "='Sea Freight'!C9"),
+]
+for i,(lbl,frm) in enumerate(summary_info):
+    r=6+i
+    ws4.row_dimensions[r].height = 20
+    label(ws4,r,2,lbl)
+    c=ws4.cell(row=r,column=3,value=frm)
+    c.font=link_font()
+    c.fill=fill(LIGHT2)
+    c.alignment=left()
+    c.border=thin_border()
+    ws4.merge_cells(start_row=r,start_column=3,end_row=r,end_column=4)
+
+# Charges breakdown
+section_header(ws4,12,2,"CHARGES BREAKDOWN (USD)",3)
+hdr_r=13
+for col,txt in [(2,"Charge Description"),(3,"Amount (USD)"),(4,"Notes")]:
+    c=ws4.cell(row=hdr_r,column=col,value=txt)
+    c.font=Font(name="Arial",size=10,bold=True,color=WHITE)
+    c.fill=fill(BLUE)
+    c.alignment=center()
+    c.border=thin_border()
+
+charge_items = [
+    ("Ocean / Air Freight","","Enter manually from Sea or Air tab"),
+    ("Origin Charges","",""),
+    ("Destination Charges","",""),
+    ("Insurance","",""),
+    ("Other","",""),
+    ("Other","",""),
+]
+for i,(lbl,val,note) in enumerate(charge_items):
+    r=14+i
+    ws4.row_dimensions[r].height = 20
+    label(ws4,r,2,lbl)
+    input_cell(ws4,r,3,0)
+    n=ws4.cell(row=r,column=4,value=note)
+    n.font=Font(name="Arial",size=9,color=DGRAY,italic=True)
+    n.fill=fill(LIGHT2)
+    n.alignment=left()
+    n.border=thin_border()
+
+ws4.row_dimensions[20].height = 20
+label(ws4,20,2,"TOTAL BUY COST")
+formula_cell(ws4,20,3,"=SUM(C14:C19)")
+ws4.cell(row=20,column=3).font=Font(name="Arial",size=10,bold=True,color=BLACK)
+
+ws4.row_dimensions[21].height = 20
+label(ws4,21,2,"Margin (%)")
+input_cell(ws4,21,3,0.15,'0.0%')
+
+ws4.row_dimensions[23].height = 28
+c=ws4.cell(row=23,column=2,value="TOTAL SELL PRICE  (USD)")
+c.font=Font(name="Arial",size=12,bold=True,color=WHITE)
+c.fill=fill(NAVY)
+c.alignment=left()
+c.border=thin_border()
+fc=ws4.cell(row=23,column=3,value="=C20/(1-C21)")
+fc.font=Font(name="Arial",size=13,bold=True,color=WHITE)
+fc.fill=fill(BLUE)
+fc.alignment=right_align()
+fc.number_format='"USD " #,##0.00'
+fc.border=thin_border()
+ws4.merge_cells("C23:D23")
+
+# Footer
+ws4.row_dimensions[25].height = 18
+f=ws4.cell(row=25,column=2,value="This quotation is valid for 7 days. Subject to space and equipment availability.")
+f.font=Font(name="Arial",size=9,color=DGRAY,italic=True)
+f.alignment=left()
+ws4.merge_cells("B25:D25")
+
+ws4.row_dimensions[26].height = 18
+f2=ws4.cell(row=26,column=2,value="Generated by The Forwarder's Desk  |  payhip.com/TheForwardersDesk")
+f2.font=Font(name="Arial",size=9,color=DGRAY)
+f2.alignment=left()
+ws4.merge_cells("B26:D26")
+
+# ── Tab colors ──
+ws1.sheet_properties.tabColor = NAVY
+ws2.sheet_properties.tabColor = BLUE
+ws3.sheet_properties.tabColor = BLUE2
+ws4.sheet_properties.tabColor = "008000"
+
+# ── Active sheet ──
+wb.active = ws2
+
+out = "/sessions/loving-hopeful-gates/mnt/outputs/Freight_Quotation_Calculator.xlsx"
+wb.save(out)
+print("Saved:", out)
